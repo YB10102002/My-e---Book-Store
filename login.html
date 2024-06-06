@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Form</title>
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .title {
+      font-size: 2em;
+      color: #4caf50;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    input[type="submit"] {
+      width: 100%;
+      background-color: #4caf50;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+    .message {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px;
+      margin-top: 20px;
+      border-radius: 5px;
+      display: none; /* Initially hidden */
+    }
+    .link-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .link {
+      color: #4caf50;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s, border-bottom 0.3s;
+      padding-bottom: 2px;
+      border-bottom: 2px solid transparent;
+    }
+    .link:hover {
+      color: #45a049;
+      border-bottom: 2px solid #45a049;
+    }
+  </style>
+
+  <script>
+    function validateForm(event) {
+      const username = document.querySelector('input[name="username"]').value;
+      const password = document.querySelector('input[name="password"]').value;
+
+      if (!username) {
+        alert("Please enter your username.");
+        event.preventDefault(); // Prevent the form from submitting
+        return false;
+      }
+
+      if (!password) {
+        alert("Please enter your password.");
+        event.preventDefault(); // Prevent the form from submitting
+        return false;
+      }
+
+      return true; // Allow the form to submit
+    }
+  </script>
+</head>
+<body>
+  <div class="title"> 
+    Welcome to e-Book Store
+  </div>
+  <div class="container">
+    <div class="message" th:if="${param.error}">
+      Invalid Username or Password...
+    </div>
+    <div class="message" th:if="${param.logout}">
+      Logout Successfully...
+    </div>
+    <h2>Login Page</h2>
+    <form th:action="@{/login}" method="post" onsubmit="return validateForm(event)">
+      <input type="email" name="username" placeholder="Username">
+      <input type="password" name="password" placeholder="Password">
+      <input type="submit" value="Login">
+      <div class="link-container">
+        <a class="link" th:href="@{/register}">Don't have an account? Register Here...</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
